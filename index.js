@@ -1,58 +1,80 @@
+const path = require('path');
 const express = require('express');
 const http = require('http');
-const Socketoi = require('socket.io');
-const exphbs = require('express-handlebars');
+const socketoi = require('socket.io');
 
+
+const formatMessage = require('./views/messages');
+const {
+    userJoin,
+    getCurrentUser,
+    userLeave,
+    getRoomUsers
+} = require('./views/users');
 
 
 const app = express();
 
 const server = http.createServer(app);
-const io = Socketoi (server);
+const io = socketoi (server);
 
-const bodyParser = require('body-parser');
+// Set static folder
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.engine('handlebars', exphbs.engine({defaultLayout: 'main'}));
-app.set('view engine', 'handlebars');
-
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
-// parse application/json
-app.use(bodyParser.json());
-
-app.use(express.static('public'));
-
+const bot = 'bot';
 
 //run when user connects
 io.on('connection', socket => {
     socket.on('joinRoom', ({ username, room}) => {
-        socket.join(user.room)
-    })
-})
+        const user = userJoin(socket.id, username, room);
+
+        socket.join(user.room);
 
 //welcome users
-
+socket.emit('message', formatMessage(bot, 'Welcome to the room!'));
 
 //broadcast when users connect
+socket.broadcast
+.to(user.room)
+.emit('message', formatMessage(bot, `${user.username} has joined`));
+
 
 //send users and room info
 
-//get current user
+io.to(user.room).emit('roomUsers', {
+    room: user.room,
+    users: getRoomUsers(user.room)
+});
+    });
 
-//run when users leave room
+    //get current user
+    socket.on('chatMessage', msg => {
+        const user = getCurrentUser(socket.id);
+        io.to(user.room)
+        .emit('message', formatMessage(user.username, msg));
+    });
 
-//get users info
+    //run when users leave room
+    socket.on('disconnect', () => {
+        const user = userLeave(socket.id);
 
-app.get('/', (req, res) => {
-    res.render("home")
+        if(user) {
+            io.to(user.room).emit(
+                'message', formatMessage(bot, `${user.username} left`)
+            )
+
+            //get users info
+            io.to(user.room).emit('roomUsers', {
+                room: user.room,
+                users: getRoomUsers(user.room)
+            });
+        }
+    });
 });
 
-app.get('/chat', (req, res) => {
-    res.render("chat")
-});
 
 const PORT = process.env.PORT || 5014
 
-app.listen(PORT,  () => {
+server.listen(PORT,  () => {
 console.log(`App Running at port: ${PORT}`)
 });

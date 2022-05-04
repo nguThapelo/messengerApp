@@ -2,15 +2,17 @@ const users = [];
 
 //when a user joins
 const userJoin = (id, username, room) => {
-    const user = { id, username, room }
+    const user = { id, username, room };
 
-    users.push(user)
+    users.push(user);
     return user;
 }
 
 //retrieve current user
 
-const getCurrentUser = (id) => users.find(user => user.id === id);
+const getCurrentUser = (id) =>  {
+    return users.find(user => user.id === id);
+}
 
 //when user leaves
 const userLeave = (id) => {
@@ -23,11 +25,13 @@ const userLeave = (id) => {
 
 //retrieve room users
 
-const getRoomUsers = (room) => users.filter(user => user.room === room);
+const getRoomUsers = (room) => {
+    return users.filter(user => user.room === room);
+}
 
 module.exports = {
     userJoin,
     getCurrentUser,
     userLeave,
     getRoomUsers
-}
+};

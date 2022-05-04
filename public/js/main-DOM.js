@@ -6,13 +6,19 @@ const userList = document.getElementById('users');
 //get user's name aand room
 
 const { username, room } = Qs.parse(location.search, {
-    ignoreQueryPrefic: true,
+    ignoreQueryPrefix: true,
 });
 
 const socket = io();
 
 //user join chat
 socket.emit('joinRoom', { username, room });
+
+//get room users
+socket.on('roomUsers', ({ room, users}) => {
+    outputRoomName(room);
+    outputUsers(users);
+});
 
 //retrieve users 
 socket.on('message', (message) => {
@@ -27,13 +33,17 @@ socket.on('message', (message) => {
 //send messge
 chatForm.addEventListener('submit', (e) => {
     e.preventDefault();
-});
+
 
 //get the message value
 
 let msg = e.target.elements.msg.value;
 
 msg = msg.trim();
+
+if(!msg) {
+    return false;
+}
 
 //Send message to server
 socket.emit('chatMessage', msg);
@@ -42,6 +52,7 @@ socket.emit('chatMessage', msg);
 e.target.elements.msg.value = '';
 e.target.elements.msg.focus();
 
+});
 //output the messages send
 
 const outputMessage = (message) => {
@@ -68,7 +79,7 @@ const outputRoomName = (room) => {
 }
 
 //output users
-const outputusers = (users) => {
+const outputUsers = (users) => {
     userList.innerHTML = '';
     users.forEach((user) => {
         const li = document.createElement('li');
@@ -81,9 +92,9 @@ const outputusers = (users) => {
 document.getElementById('leave-btn').addEventListener('click', () => {
     const userLeaveRoom = confirm('Are you sure you want to leave thr room now?');
     if(userLeaveRoom) {
-        window.location = '../home'
+        window.location = '../index.html'
     } else {
         
     }
-})
+});
 
