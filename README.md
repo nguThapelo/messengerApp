@@ -18,4 +18,4 @@ Modules (npm)
 - express-handlebars
 - body-parser
 
-look up at the app on: [link]
+look up at the app on: https://thapelomessengerapp.herokuapp.com/
