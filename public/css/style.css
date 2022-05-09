@@ -17,7 +17,7 @@
 body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 16px;
-	background: lightgreen;
+	background: #499167;
 	margin: 20px;
 }
 
@@ -32,9 +32,11 @@ a {
 .btn {
 	cursor: pointer;
 	padding: 5px 15px;
-	background: var(--light-color);
+	background: #499167;
 	color: var(--dark-color-a);
-	border: 0;
+	border: 2px solid #E7E7E7;
+	border-radius: 5px;
+	width: 20px;
 	font-size: 17px;
 }
 
@@ -42,16 +44,16 @@ a {
 
 .chat-container {
 	max-width: 1100px;
-	background: lightgren;
+	background: #5cb85c;
 	margin: 30px auto;
 	overflow: hidden;
 }
 
 .chat-header {
-	background: var(--dark-color-a);
-	color: black;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
+	background: #FFC857;
+	color: #499167;
+	border-top-left-radius: 9px;
+	border-top-right-radius: 9px;
 	padding: 15px;
 	display: flex;
 	align-items: center;
@@ -64,8 +66,8 @@ a {
 }
 
 .chat-sidebar {
-	background: var(--dark-color-b);
-	color: black;
+	background: #5cb85c;
+	color: #E7E7E7;
 	padding: 20px 20px 60px;
 	overflow-y: scroll;
 }
@@ -113,8 +115,22 @@ a {
 
 .chat-form-container {
 	padding: 20px 30px;
-	background-color: var(--dark-color-a);
+	background-color: #FFC857;
+	
+	
 }
+
+.btnChat {
+	cursor: pointer;
+	padding: 5px 15px;
+	background: #5cb85c;
+	color: #fff;
+	border: 2px solid #E7E7E7;
+	border-radius: 5px;
+	
+	font-size: 17px;
+}
+
 
 .chat-form-container form {
 	display: flex;
@@ -124,6 +140,8 @@ a {
 	font-size: 16px;
 	padding: 5px;
 	height: 40px;
+	border: 2px solid #499167;
+	border-radius: 9px;
 	flex: 1;
 }
 
@@ -131,20 +149,27 @@ a {
 .join-container {
 	max-width: 500px;
 	margin: 80px auto;
-	color: #fff;
+	color: #499167;
 }
 
 .join-header {
 	text-align: center;
+	font-weight: bold;
 	padding: 20px;
-	background: var(--dark-color-a);
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
+	background: #E5B757;
+	border-top-left-radius: 9px;
+	border-top-right-radius: 9px;
+	border: 2px solid #E7E7E7;
 }
 
 .join-main {
+	font-weight: bold;
+	color: #499167;
 	padding: 30px 40px;
-	background: var(--dark-color-b);
+	background: #FFC857;
+	border-bottom-left-radius: 9px;
+	border-bottom-right-radius: 9px;
+	border: 2px solid #E7E7E7;
 }
 
 .join-main p {
@@ -165,6 +190,8 @@ a {
 	padding: 5px;
 	height: 40px;
 	width: 100%;
+	border: 2px solid #499167;
+	border-radius: 9px;
 }
 
 .join-main select {
@@ -172,11 +199,16 @@ a {
 	padding: 5px;
 	height: 40px;
 	width: 100%;
+	border: 2px solid #499167;
+	border-radius: 9px;
 }
 
 .join-main .btn {
+	color: #E7E7E7;
 	margin-top: 20px;
 	width: 100%;
+	border: 2px solid #499167;
+	border-radius: 9px;
 }
 
 @media (max-width: 700px) {

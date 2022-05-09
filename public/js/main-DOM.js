@@ -90,7 +90,7 @@ const outputUsers = (users) => {
 
 //confirm user before they leave room
 document.getElementById('leave-btn').addEventListener('click', () => {
-    const userLeaveRoom = confirm('Are you sure you want to leave thr room now?');
+    const userLeaveRoom = confirm('Are you sure you want to leave the room now?');
     if(userLeaveRoom) {
         window.location = '../index.html'
     } else {
